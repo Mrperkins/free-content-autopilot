@@ -6,7 +6,6 @@ import os
 import subprocess
 from pathlib import Path
 from .core import ROOT,NICHE,approved_niche,config,decode_marker,draft,encode_marker,research
-from .render import render
 
 def gh(*args):
     return subprocess.run(['gh',*args],text=True,check=True,capture_output=True).stdout.strip()
@@ -135,6 +134,7 @@ def main():
         dest.write_text(json.dumps(item,indent=2,ensure_ascii=False))
         print('Created draft',item['id'],kind)
     elif args.command=='render':
+        from .render import render
         print(render(args.input,args.output or 'work/rendered'))
     elif args.command=='issue-draft':
         issue_draft(args.input,args.output)
@@ -143,6 +143,7 @@ def main():
     elif args.command=='publish-approved':
         publish_approved(args.output or 'work/approved')
     elif args.command=='dryrun':
+        from .render import render
         print(render(ROOT/'demo/sample_draft.json',args.output or 'work/demo'))
 
 if __name__=='__main__': main()

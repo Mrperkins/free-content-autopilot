@@ -1,5 +1,9 @@
 name: Research niche for owner approval
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/research.yml'
   schedule:
     - cron: '15 11 * * *'
   workflow_dispatch:
