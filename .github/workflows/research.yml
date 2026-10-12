@@ -1,0 +1,34 @@
+name: Research niche for owner approval
+on:
+  schedule:
+    - cron: '15 11 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+concurrency:
+  group: free-autopilot-research
+  cancel-in-progress: false
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Research niches if not yet approved
+        run: |
+          if python -c "import json; assert json.load(open('config/approved_niche.json'))['id'] is None"; then
+            python -m autopilot.cli research --output niche-proposals.json
+          else
+            echo "A niche has already been approved."
+          fi
+      - name: Open suggestions for owner approval
+        if: ${{ hashFiles('niche-proposals.json') != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -m autopilot.cli issue-niches --input niche-proposals.json

@@ -1,0 +1,64 @@
+name: Act only on explicit owner approval
+on:
+  issues:
+    types: [labeled]
+permissions:
+  contents: write
+  issues: write
+  actions: read
+concurrency:
+  group: free-autopilot-approval
+  cancel-in-progress: false
+jobs:
+  niche:
+    if: >-
+      github.event.label.name == 'niche-approved' &&
+      github.event.sender.login == github.repository_owner &&
+      github.event.issue.user.login == 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate niche approval
+        run: python -m autopilot.cli accept-niche
+      - name: Persist selected niche
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add config/approved_niche.json
+          git commit -m 'Approve chosen niche for videos'
+          git push
+      - name: Close selected niche Issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close '${{ github.event.issue.number }}' -c 'Niche selected; every future video still requires separate owner approval.'
+  publish:
+    if: >-
+      github.event.label.name == 'publish-approved' &&
+      github.event.sender.login == github.repository_owner &&
+      github.event.issue.user.login == 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      YT_PRIVACY: private
+      YT_API_AUDITED: 'false'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install official YouTube SDK
+        run: python -m pip install -r requirements.txt
+      - name: Verify approved artifact hash and upload PRIVATE
+        run: python -m autopilot.cli publish-approved --output work/approved
+      - name: Close Issue only after successful upload
+        run: gh issue close '${{ github.event.issue.number }}' -c 'Private YouTube upload completed. Verify in YouTube Studio.'

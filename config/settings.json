@@ -1,0 +1,37 @@
+{
+  "budget_usd": 0,
+  "paid_fallbacks": false,
+  "platform": "youtube",
+  "content_mix": [
+    "short",
+    "long"
+  ],
+  "approval_mode": "each",
+  "daily_drafts": 1,
+  "free_gemini_model": "gemini-2.5-flash-lite",
+  "candidate_niches": [
+    {
+      "id": "ai_workflows",
+      "name": "AI tools and useful workflow explainers",
+      "query": "AI tools automation productivity software"
+    },
+    {
+      "id": "auto_tech",
+      "name": "Practical automotive and family tech",
+      "query": "car safety technology electric vehicles innovations"
+    },
+    {
+      "id": "consumer_tech",
+      "name": "Consumer technology explained",
+      "query": "consumer tech phones laptops privacy software"
+    },
+    {
+      "id": "career_skills",
+      "name": "Career skills and practical productivity",
+      "query": "workplace productivity practical career skills"
+    }
+  ],
+  "youtube_privacy": "private",
+  "max_llm_calls_per_run": 1,
+  "max_issues_per_run": 3
+}

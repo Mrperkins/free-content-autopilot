@@ -1,0 +1,31 @@
+{
+  "id": "synthetic-example",
+  "title": "Three Questions Before Choosing An App",
+  "format": "short",
+  "description": "Synthetic demo: original decision framework, not current research or a factual video.",
+  "scenes": [
+    {
+      "headline": "Does it solve something real?",
+      "narration": "Before choosing a new tool, consider the outcome that actually matters. A great feature list is no substitute for solving a recurring problem.",
+      "visual_note": "Start with the outcome"
+    },
+    {
+      "headline": "Compare it fairly",
+      "narration": "Test one practical task using your current workflow and the proposed alternative. Keep the criteria consistent, and write down where each approach creates extra work.",
+      "visual_note": "Same task, same criteria"
+    },
+    {
+      "headline": "Check the hidden friction",
+      "narration": "Review the time required to learn a new tool and the manual cleanup it creates. Convenience depends on the full workflow, not just an impressive demonstration.",
+      "visual_note": "Include setup and maintenance"
+    },
+    {
+      "headline": "Choose evidence over hype",
+      "narration": "Repeat the comparison before you commit. Favor the option that produces reliable results with less effort for your specific needs.",
+      "visual_note": "Document the result"
+    }
+  ],
+  "source_urls": [],
+  "tags": [],
+  "risk_notes": "Offline example only; not suitable for upload"
+}

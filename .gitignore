@@ -1,0 +1,12 @@
+.env
+*client_secret*.json
+*credentials*.json
+*.pem
+work/
+dist/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.mp4
+*.wav
+niche-proposals.json
