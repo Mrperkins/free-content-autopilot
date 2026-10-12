@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/research.yml'
+      - 'config/settings.json'
   schedule:
     - cron: '15 11 * * *'
   workflow_dispatch:

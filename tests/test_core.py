@@ -32,6 +32,7 @@ class TestAutopilot(unittest.TestCase):
         self.assertEqual(config()['budget_usd'],0)
         self.assertIs(config()['paid_fallbacks'],False)
         self.assertEqual(config()['approval_mode'],'each')
+        self.assertEqual(config()['free_gemini_model'],'gemini-3.5-flash-lite')
     def test_feed(self):
         self.assertEqual(len(collect_news('tools',opener=lambda _:RSS)),3)
     def test_research(self):

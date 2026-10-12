@@ -8,7 +8,7 @@
   ],
   "approval_mode": "each",
   "daily_drafts": 1,
-  "free_gemini_model": "gemini-2.5-flash-lite",
+  "free_gemini_model": "gemini-3.5-flash-lite",
   "candidate_niches": [
     {
       "id": "ai_workflows",
